@@ -1,0 +1,5 @@
+package com.bancolombia.app.entities;
+
+public class Client {
+
+}

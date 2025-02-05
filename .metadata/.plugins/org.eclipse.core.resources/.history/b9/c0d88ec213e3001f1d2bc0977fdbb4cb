@@ -1,0 +1,5 @@
+spring.application.name=micro-client
+server.port=8085
+
+#orm config
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
