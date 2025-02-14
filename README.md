@@ -1,4 +1,4 @@
-# Proyecto Final 
+# Proyecto Final :) <3
 La empresa netec requiere una implementación en microservicios para controlar el sistema de articulos y los trabajadores.
 Para netec es importante el buen diseño de las  aplicaciones, porque se piensa agregar más en un futuro. Y también la carga de trabajo es variable.
 
