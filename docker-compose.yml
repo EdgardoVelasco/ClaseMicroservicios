@@ -1,0 +1,46 @@
+services:
+    mysqlserver:
+        container_name: mysqlserver
+        image: "mysql:8.0"
+        environment:
+            - MYSQL_DATABASE=micro1
+            - MYSQL_ROOT_PASSWORD=netec123
+        healthcheck:
+            test: ["CMD", "mysqladmin", "-uroot", "-pnetec123", "ping", "-h","localhost"]
+    
+    configserver:
+        container_name: configserver
+        image: edgardovefe/clasespe:config
+        ports:
+            - 8888:8888
+        healthcheck:
+            test: curl -f http://localhost:8888/micro-client/default
+
+    eurekaserver:
+        container_name: eurekaserver
+        image: edgardovefe/clasespe:eureka
+        ports:
+            - 9999:9999
+        healthcheck:
+            test: curl -f http://localhost:9999
+    
+    client:
+        container_name: client
+        image: edgardovefe/clasespe:client
+        ports:
+            - 8085:8085
+        environment:
+            - IP_CONFIG=configserver
+            - IP_DB=mysqlserver
+            - PORT_DB=3306
+            - NAME_DB=micro1
+            - USER_DB=root
+            - PASSWORD_DB=netec123
+            - IP_EUREKA=eurekaserver
+        depends_on:
+            mysqlserver:
+                condition: service_healthy
+            configserver:
+                condition: service_healthy
+            eurekaserver:
+                condition: service_healthy
